@@ -1,0 +1,21 @@
+{
+  "name": "mrmohebi/phpuploadvalidator",
+  "description": "validator uploaded files",
+  "minimum-stability": "stable",
+  "keywords": ["php", "validator", "check", "image", "upload", "laravel"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "MMMohebi",
+      "email": "mmmohebi@outlook.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MrMohebi\\PHPUploadValidator\\": "src/PHPUploadValidator.php"
+    }
+  }
+}
