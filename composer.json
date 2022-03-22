@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MrMohebi\\PHPUploadValidator\\": "src/PHPUploadValidator.php"
+      "MrMohebi\\": "src/PHPUploadValidator.php"
     }
   }
 }
