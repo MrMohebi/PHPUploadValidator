@@ -159,7 +159,7 @@ class PHPUploadValidator
     }
 
     private static function imageMimes():array{
-        return ['image/bmp','image/bmp','image/jpeg','image/pipeg','image/svg+xml','image/tiff','image/x-icon','image/vnd.microsoft.icon'];
+        return ['image/bmp','image/bmp','image/jpeg','image/pipeg','image/svg+xml','image/tiff','image/x-icon','image/vnd.microsoft.icon', "image/png" ,"image/webp"];
     }
 
     private static function videoMimes():array{
