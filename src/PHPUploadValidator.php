@@ -1,7 +1,7 @@
 <?php
 
 
-namespace MrMohebi;
+namespace MrMohebi\PHPUploadValidator;
 
 
 class PHPUploadValidator
