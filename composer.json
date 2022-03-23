@@ -13,5 +13,10 @@
   "require": {
     "php": "^8.0",
     "ext-fileinfo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MrMohebi\\PHPUploadValidator\\": "src/"
+    }
   }
 }

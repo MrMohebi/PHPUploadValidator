@@ -4,7 +4,7 @@
 namespace MrMohebi\PHPUploadValidator;
 
 
-class Uploader
+class PHPUploadValidator
 {
     protected array|null $file;
     protected string $filename;
