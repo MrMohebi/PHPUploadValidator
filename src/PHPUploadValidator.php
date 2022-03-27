@@ -4,6 +4,8 @@
 namespace MrMohebi\PHPUploadValidator;
 
 
+use JetBrains\PhpStorm\Pure;
+
 class PHPUploadValidator
 {
     protected array|null $file;
@@ -121,7 +123,7 @@ class PHPUploadValidator
         return $this->filename . "." . $this->extension;
     }
 
-    public function getType():string{
+    public function getExtension():string{
         return $this->extension;
     }
 
@@ -129,7 +131,11 @@ class PHPUploadValidator
         return $this->mime;
     }
 
-    public function isImage():bool{
+    public function getMimeType():string{
+        return explode(":", $this->mime)[0];
+    }
+
+    #[Pure] public function isImage():bool{
         return in_array($this->mime, self::imageMimes());
     }
 
@@ -142,20 +148,19 @@ class PHPUploadValidator
     }
 
     private static function convertSize(string $size):int{
-        switch (substr($size, -1)) {
-            case 'G': $sizeInByte = intval($size) * pow(1024, 3); break;
-            case 'M': $sizeInByte = intval($size) * pow(1024, 2); break;
-            case 'K': $sizeInByte = intval($size) * pow(1024, 1); break;
-            default:  $sizeInByte = intval($size);                break;
-        }
-        return $sizeInByte;
+        return match (substr($size, -1)) {
+            'G' => intval($size) * pow(1024, 3),
+            'M' => intval($size) * pow(1024, 2),
+            'K' => intval($size) * pow(1024, 1),
+            default => intval($size),
+        };
     }
 
     private static function createPath($path):bool {
         if (is_dir($path)) return true;
         $prev_path = substr($path, 0, strrpos($path, '/', -2) + 1 );
         $return = self::createPath($prev_path);
-        return ($return && is_writable($prev_path)) ? mkdir($path) : false;
+        return $return && is_writable($prev_path) && mkdir($path);
     }
 
     private static function imageMimes():array{
