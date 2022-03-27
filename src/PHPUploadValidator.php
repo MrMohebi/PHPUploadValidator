@@ -132,7 +132,7 @@ class PHPUploadValidator
     }
 
     public function getMimeType():string{
-        return explode(":", $this->mime)[0];
+        return explode("/", $this->mime)[0];
     }
 
     #[Pure] public function isImage():bool{
