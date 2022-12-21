@@ -45,7 +45,7 @@ class PHPUploadValidator
                 if(move_uploaded_file($this->tempName,$pathToSave."/".$this->getNameWithExtension())) return true;
 
             }else{
-                if($saveFunction()) return true;
+                if($saveFunction($this->tempName)) return true;
             }
         }
         return false;
