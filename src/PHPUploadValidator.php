@@ -13,7 +13,6 @@ class PHPUploadValidator
     protected string $tempName;
     protected string $mime;
     protected string $extension;
-    protected string $pathToSave;
     protected int $size;
     protected int $allowedMaxSize = 1;
     protected array $allowedMime = [];
@@ -21,8 +20,7 @@ class PHPUploadValidator
 
 
 
-    public function __construct(string $fileFiledName ,string $pathToSave, string $maxSize = null, array $allowedMime = null, array $allowedContentType = null){
-        $this->pathToSave = $pathToSave;
+    public function __construct(string $fileFiledName , string $maxSize = null, array $allowedMime = null, array $allowedContentType = null){
         $this->file = array_key_exists($fileFiledName, $_FILES) ? $_FILES[$fileFiledName] : null;
         if($this->isExist()){
             $this->tempName = $this->file['tmp_name'];
@@ -40,11 +38,15 @@ class PHPUploadValidator
         }
     }
 
-    public function upload():bool{
+    public function upload(?string $pathToSave, ?\Closure $saveFunction):bool{
         if($this->isValid()){
-            if(!self::createPath($this->pathToSave)) $this->errors["pathToSave"] = "couldn't create path";
+            if($pathToSave && strlen($pathToSave) > 0){
+                if(!self::createPath($pathToSave)) $this->errors["pathToSave"] = "couldn't create path";
+                if(move_uploaded_file($this->tempName,$pathToSave."/".$this->getNameWithExtension())) return true;
 
-            if(move_uploaded_file($this->tempName,$this->pathToSave."/".$this->getNameWithExtension())) return true;
+            }else{
+                if($saveFunction()) return true;
+            }
         }
         return false;
 
